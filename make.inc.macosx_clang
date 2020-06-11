@@ -9,7 +9,7 @@
 # (note that /usr/bin/g++,gcc are aliased to clang/LLVM, so CXX,CC unchanged)
 
 # compile flags for use with clang: (note absence of -march, etc)
-CFLAGS = -fPIC -O3
+CFLAGS = $(CFLAGS_INIT) -fPIC -O3
 
 # If you're getting warning messages of the form:
 #    ld: warning: object file (lib-static/libfinufft.a(finufft1d.o)) was built for
@@ -21,8 +21,8 @@ CFLAGS = -fPIC -O3
 
 # taken from makefile...
 CFLAGS   += -I src
-FFLAGS   = $(CFLAGS)
-CXXFLAGS = $(CFLAGS) -DNEED_EXTERN_C
+FFLAGS   = $(FFLAGS_INIT) $(CFLAGS)
+CXXFLAGS = $(CXXFLAGS_INIT) $(CFLAGS) -DNEED_EXTERN_C
 
 # OpenMP with clang needs following...
 OMPFLAGS = -Xpreprocessor -fopenmp

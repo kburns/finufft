@@ -8,10 +8,16 @@
 # overrides the defaults below (which are for ubuntu linux/GCC system).
 # See docs/install.rst, and make.inc.*
 
+# Copy initial compiler flags
+CFLAGS_INIT := $(CFLAGS)
+FFLAGS_INIT := $(FFLAGS)
+CXXFLAGS_INIT := $(CXXFLAGS)
+LDFLAGS_INIT := $(LDFLAGS)
+
 # compilers, and linking from C, fortran...
-CXX=g++
-CC=gcc
-FC=gfortran
+# CXX=g++
+# CC=gcc
+# FC=gfortran
 CLINK=-lstdc++
 FLINK=$(CLINK)
 # compile flags for GCC, baseline single-threaded, double precision case...
@@ -26,7 +32,7 @@ CXXFLAGS = $(CFLAGS) -DNEED_EXTERN_C
 FFTWNAME=fftw3
 # the following uses fftw3_omp, since 10% faster than fftw3_threads...
 FFTWOMPSUFFIX=omp
-LIBS = -lm
+LIBS = $(LDFLAGS_INIT) -lm
 # extra flags for multithreaded: C++/C/Fortran, MATLAB, and octave...
 OMPFLAGS = -fopenmp
 OMPLIBS =
@@ -108,7 +114,7 @@ usage:
 	@echo " make fortran - compile and test Fortran interfaces"
 	@echo " make matlab - compile MATLAB interfaces"
 	@echo " make octave - compile and test octave interfaces"
-	@echo " make python3 - compile and test python3 interfaces"	
+	@echo " make python3 - compile and test python3 interfaces"
 	@echo " make all - do all the above (around 1 minute; assumes you have MATLAB, etc)"
 	@echo " make python - compile and test python (v2) interfaces"
 	@echo " make spreadtest - compile and run spreader tests only"
